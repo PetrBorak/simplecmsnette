@@ -1,0 +1,24 @@
+{block content}
+    <div class="under-tabs">
+     {control updateform begin}
+       {foreach $langs as $lang}
+        <div class="ut-header">
+            <div class="flags">
+                <span class="{$lang}flag">
+                </span>
+            </div>
+        </div>
+
+           <div class="formrow clearfix">
+              {$control["updateform"]["content".$lang]->label}
+              {$control["updateform"]["content".$lang]->control}
+           </div>
+         {/foreach}
+           <div class="formrow clearfix submitbut">
+            {$control["updateform"]["submit"]->control};
+            </div>
+
+       {control updateform end}
+
+    </div>
+{/block content}

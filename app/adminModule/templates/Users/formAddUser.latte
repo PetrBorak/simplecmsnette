@@ -1,0 +1,4 @@
+{* Latte template *}
+{extends '../empty.latte'}
+{block content}
+  {control addUser begin}<div class="formrow">{$control["addUser"]["password"]->label}{$control["addUser"]["password"]->control}</div><div class="formrow">{$control["addUser"]["password02"]->label}{$control["addUser"]["password02"]->control}</div><div class="formrow">{$control["addUser"]["submit"]->control}</div>{control addUser end}

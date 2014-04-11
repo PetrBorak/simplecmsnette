@@ -1,0 +1,60 @@
+{* Latte template *}
+{block additional}
+  <script rel="javascript" src="{$basePath}/js/underscore.js"></script>
+		<script rel="javascript" src="{$basePath}/js/modal-users-template.js"></script>
+		<script rel="javascript" src="{$basePath}/js/form-users.js"></script>
+		<script rel="javascript" src="{$basePath}/js/make-modal.js"></script>
+		<script rel="javascript" src="{$basePath}/js/formwithresponse.js"></script>
+{/block}
+
+{block content}
+								<div class="under-tabs">
+												<div class="nav-box build clearfix">
+																<a class="add-page-ico" n:href="addCategory!">
+																				<span class="glyphicon glyphicon-plus">
+																				</span>
+																					{_"Přidat kategorii"}
+																</a>
+												</div>
+												{snippet items}
+																<ul class="sortable pageitems">
+																				{foreach $items as $item}
+																								<li class="item" id="item-{$item->id}">
+																												<i class="glyphicon glyphicon-move"></i>
+																												{$item['title']}
+																												<span class="toright">
+																																<a n:href="Reference:edit $item->id">
+																																				<i class="glyphicon glyphicon-pencil"></i>
+																																</a>
+																																<a class="removeCategory" n:href="remove! $item->id">
+																																				<i class="glyphicon glyphicon-remove-circle"></i>
+																																</a>
+																												</span>
+																								</li>
+																				{/foreach}
+																</ul>
+												{/snippet}
+												<a n:href="Categories:addCategory en-nameofcategory=>'', cs-nameofcategory=>''">spustit test</a>
+								</div>
+				
+				     <script type="text/javascript">
+            jQuery(function() {
+
+              jQuery("ul.sortable").livequery(function() {
+
+                  jQuery(this).sortable({
+                      update: function(serialize, ui) {
+                          jQuery.ajax({
+                              url: {link changeRank!},
+                              data: jQuery(this).sortable("serialize"),
+                              type: 'post'
+                          });
+                      }
+                  });
+              });
+              jQuery("ul.sortable").disableSelection();
+														$('.add-page-ico').makemodal({ title:'Přidat kategorii',modalbody:'addcategory', langs: {$langs}, preklad:{ nazevKategorie: {_'Název kategorie'} }});
+														
+													$('.removeCategory').makemodal({ title:'Opravdu?',modalbody:'removecategory', langs: {$langs}, preklad:{ opravdu: {_'Opravdu chcete tuto kategorii odstranit?'}, odstranit:{_'Odstranit kategorii'} }, noform: true, sendbut: '.removeuserbtn'});
+            });
+    </script>

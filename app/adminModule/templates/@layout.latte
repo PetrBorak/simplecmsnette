@@ -1,0 +1,118 @@
+{**
+ * My Application layout template.
+ *
+ * @param string   $basePath web base path
+ * @param string   $robots   tell robots how to index the content of a page (optional)
+ * @param array    $flashes  flash messages
+ *}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="robots" content="{$robots}" n:ifset="$robots">
+
+	<title>{block title|striptags|upper}Nette Application Skeleton{/block}</title>
+
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
+	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/bootstrap.css">
+        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/bootstrap-theme.css">
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+        <script type="text/javascript" src="{$basePath}/js/jquery.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/jquery.livequery.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/nette.ajax.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/bootstrap.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/tinymce.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/jquery.autocomplete.min.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/application.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/jquery-ui-1.8.18.custom.min.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/jquery.form.js"></script>
+								{ifset #additional}
+												{include #additional}
+								{/ifset}
+        
+								<script type="text/javascript">
+												$(function () {
+																$.nette.init();
+												});
+								</script>
+        
+	{block head}{/block}
+</head>
+
+<body>
+   {if $user->isLoggedIn()}
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Simple admin</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav log-info">
+            <li><a class="user-info" href="#"><i class="glyphicon glyphicon-user"></i>{$user->identity->data['username']}</a></li>
+            <li><a n:href="User:password">Změna hesla</a></li>
+            <li><a n:href="signOut!">Odhlásit se</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    {/if}
+  <div class="container pt-70">
+      <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alelrt-dismisable">{$flash->message}
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      </div>
+      {if $user->isLoggedIn()}
+              <ul class="nav nav-tabs">
+                  <li {ifCurrent Homepage:default}class="active"{/ifCurrent}>
+                      <a n:href="HomePage:default lang=>$lang">Admin</a>
+                  </li>
+                  <li {ifCurrent Homepagelist:default}class="active"{/ifCurrent}>
+                      <a n:href="Homepagelist:default lang=>$lang">Homepage</a>
+                  </li>
+                  <li {ifCurrent Pages:default}class="active"{/ifCurrent}
+                      {ifCurrent Pages:edit}class="active"{/ifCurrent}>
+                      <a n:href="Pages:default">Pages</a>
+                  </li>
+                  <li n:class="$presenter->isLinkCurrent('Reference:*') ? active">
+                      <a n:href="Reference:default">Reference</a>
+                  </li>
+																		<li n:class="$presenter->isLinkCurrent('Categories:*') ? active">
+																						<a n:href="Categories:default">Categories</a>
+																		</li>
+																		{if $user->isInRole('superadmin')}
+																				<li n:class="$presenter->isLinkCurrent('Users:*') ? active">
+																								<a n:href="Users:default">Users</a>
+																				</li>
+																		{/if}
+                  
+              </ul>
+         {/if}
+
+
+
+           
+
+           {include #content}
+
+
+<div class="footer-main-admin">
+    <div class="fma-left">
+        Simple CMS catalog. Vydán dne 17.12. 2013
+    </div>
+    <div class="fma-right">
+        <a href="http://nette.org" target="_blank" title="Nette Framework - The Most Innovative PHP Framework"><img src="data:image/gif;base64,R0lGODlhUAAPAJEAAGZmZjSE0v///4qDcCH5BAAAAAAALAAAAABQAA8AAAKthI+py+0Pj5i02ouz3rwbEYTiSJZmKAzqyrbuC8fCd9a2mMb6zqszALoJS7me8Tj4BYOB5QT1bEYpuBWFNbFqk1lu8erF0qSo8ojZxJG+vnayncoV3/S53DoG6aFMdD/aZNVVB1fXBRZG6JMHZab2mHa2tXUX51Z4qZjEaEblGCnVNymIRZd4dzq4CTTUWoUEu6Pk6joXeyvGSjtki4ur1BEsPEyMEXGMnKysUAAAOw==" alt="Powered by Nette Framework" width="80" height="15"></a>
+        <a href="http://dibiphp.com" target="_blank" title="dibi - tiny 'n' smart database abstraction layer"><img src="data:image/gif;base64,R0lGODlhUAAPALMAAGqt3JzI597t9+72+zqS0Hu24M3k80qb1CmJzGZmZv///4mOeQAAAAAAAAAAAAAAACH5BAAAAAAALAAAAABQAA8AAATZMMlJq704682n+mAojmRpnmgqKUjrvnAMK0tt33iu7/ytrLIPQiicsVq0nnLJrP0SRyPCMBhGXQKBK9nsep3AFmCgCBSRZcUAEMSBfNy48zOP0xdvd7gAIrOIaiAFVltuTod4hzRJXImOjYx6UGgBBACAVgAEZn9RjXh3j4qPd3mgkY42TywHZ5iunYU+hqKLiKO3oj5hH5VmVYC+mEi0cLN2qIyloaphlyFsQs8g0Z5f102rLgACCgJshAjc3uCu2Oc92jLr7EPo7zmrKfP09fYkHfn6+/wWEQA7" width="80" height="15" alt="dibi powered"></a>
+    </div>
+</div>
+              
+    </div>
+</body>
+</html>

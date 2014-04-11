@@ -1,0 +1,34 @@
+{* Latte template *}
+
+{block content}
+    <div class="under-tabs">
+        {control addreference begin}
+            {foreach $langs as $lang}
+                <div class="ut-header">
+                    <div class="flags">
+                        <span class="{$lang}flag">
+                        </span>
+                    </div>
+                </div>
+                <div class="formrow clearfix">
+                    {$control['addreference']['title'.$lang]->label}
+                    {$control['addreference']['title'.$lang]->control}
+                </div>
+                <div class="formrow clearfix">
+                    {$control['addreference']['created'.$lang]->label}
+                    {$control['addreference']['created'.$lang]->control}
+                </div>
+                <div class="formrow clearfix">
+                    {$control['addreference']['content'.$lang]->label}
+                    {$control['addreference']['content'.$lang]->control}
+                </div>                
+            {/foreach}
+            <div class="formrow clearfix build">
+                {$control["addreference"]["categories"]->label}
+                {$control["addreference"]["categories"]->control}
+            </div>
+            {$control["addreference"]["submit"]->control}            
+        {control addreference end}
+    </div>
+    
+    

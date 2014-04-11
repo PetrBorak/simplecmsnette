@@ -1,0 +1,56 @@
+{* Latte template *}
+{block additional}
+		<script rel="javascript" src="{$basePath}/js/make-modal.js"></script>
+		<script rel="javascript" src="{$basePath}/js/formwithresponse.js"></script>
+		<script rel="javascript" src="{$basePath}/js/form-users.js"></script>
+{/block}
+
+{block content}
+  <div class="under-tabs">
+      <div class="nav-box build clearfix">
+          <a class="add-page-ico" n:href="Reference:addReference">
+              <span class="glyphicon glyphicon-plus">
+              </span>
+               {_"Přidat referenci"}
+          </a>
+      </div>
+      {snippet items}
+          <ul class="sortable pageitems">
+              {foreach $items as $item}
+                  <li class="item" id="item-{$item->id}">
+                      <i class="glyphicon glyphicon-move"></i>
+                      {$item['title']}
+                      <span class="toright">
+                          <a n:href="Reference:edit $item->id">
+                              <i class="glyphicon glyphicon-pencil"></i>
+                          </a>
+                          <a class="ajax" n:href="remove! $item->id">
+                              <i class="glyphicon glyphicon-remove-circle"></i>
+                          </a>
+                      </span>
+                  </li>
+              {/foreach}
+          </ul>
+      {/snippet}
+  </div>
+  
+     <script type="text/javascript">
+            jQuery(function() {
+
+              jQuery("ul.sortable").livequery(function() {
+
+                  jQuery(this).sortable({
+                      update: function(serialize, ui) {
+                          jQuery.ajax({
+                              url: {link changeRank!},
+                              data: jQuery(this).sortable("serialize"),
+                              type: 'post'
+                          });
+                      }
+                  });
+              });
+              jQuery("ul.sortable").disableSelection();
+            });
+    </script>
+  
+  {/block content}

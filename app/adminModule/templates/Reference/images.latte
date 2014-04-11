@@ -1,0 +1,19 @@
+													<div class="images-to-edit">
+																								<ul class="sortable clearfix images-list">
+																												{foreach $images as $image}
+																																<li class="image-item" id="item-{$image['id']}">
+																																				<a href="#">
+																																								<img src="{$image['path']}">
+																																				</a>
+																																				<div class="options-images clearfix">
+																																								<span id="edit-img-{$image['id']}" class="edit-image">
+																																												<i class="glyphicon glyphicon-pencil"></i>
+																																								</span>
+																																								<span id="remove-img-{$image['id']}" class="edit-image">
+																																												<a n:href="removeImage! imageid=>$image['id']" class="ajax"><i class="glyphicon glyphicon-remove-circle"></i></a>
+																																								</span>																																				
+																																				</div>
+																																</li>
+																												{/foreach}
+																								</ul>
+																				</div>

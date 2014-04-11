@@ -1,0 +1,30 @@
+{* Latte template *}
+
+{block content}
+  <div class="under-tabs">
+    {control editForm begin}
+       {foreach $langs as $lang}
+            <div class="ut-header">
+                <div class="flags">
+                    <span class="{$lang}flag">
+                    </span>
+                </div>
+            </div>
+            <div class="formrow clearfix">
+                {$control["editForm"]["titleEditPage".$lang]->label}
+                {$control["editForm"]["titleEditPage".$lang]->control}
+            </div>
+            <div class="formrow clearfix">
+                {$control["editForm"]["contentEditPage".$lang]->label}
+                {$control["editForm"]["contentEditPage".$lang]->control}
+            </div>            
+       {/foreach}
+       <div class="formrow clearfix build">
+           {$control["editForm"]["categories"]->label}
+           {$control["editForm"]["categories"]->control}
+       </div>
+       {$control["editForm"]["submit"]->control};
+    {control editForm end}
+  
+  </div>
+     

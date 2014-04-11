@@ -1,0 +1,17 @@
+{block content}
+
+<h1>{$list->title}</h1>
+
+<fieldset>
+    <legend>Přidat úkol</legend>
+
+    {form taskForm}
+    <div class="task-form">
+        {label text /} {input text size => 30, autofocus => true} {label userId /} {input userId} {input create}
+    </div>
+    {/form}
+</fieldset>
+
+{control taskList}
+
+{/block}

@@ -1,0 +1,58 @@
+#
+# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+#
+# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
+# http://nette.org/security-warning
+#
+common:
+        gettextLatte:
+            localePath: %appDir%/local/
+            langs: {'cs' : 'cs_CZ.utf8', 'en' : 'en_US.utf8', 'de' : 'de_DE.utf8', 'it' : 'it_IT.utf8'}
+
+
+        parameters:
+
+            application:
+                type: 'Simple CMS'
+                version: 'beta version'
+                compiled: '17.12.2013'
+
+            dsn: 'mysql:host=127.0.0.1;dbname=nette01'
+            password: 'ritarita'
+            user: 'root'
+            langs: {'en','cs'}
+
+        php:
+                date.timezone: Europe/Prague
+                # zlib.output_compression: yes
+
+        nette:
+                application:
+                        errorPresenter: Error
+
+
+                session:
+                        expiration: 30 days
+
+
+        services:
+                permission: PermissionSet
+                authenticator: Todo\Authenticator
+                routerFactory: RouterFactory
+                router: @routerFactory::createRouter
+
+                database:
+                    class: \Nette\Database\Connection(%dsn%, %user%, %password%)
+
+                taskRepository: Todo\TaskRepository
+                userRepository: Todo\UserRepository
+                listRepository: Todo\ListRepository
+
+
+
+        factories:
+
+
+production < common:
+
+development < common:

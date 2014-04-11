@@ -1,0 +1,4 @@
+nbproject/
+*.mo
+composer.lock
+vendor/

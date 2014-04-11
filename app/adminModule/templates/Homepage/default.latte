@@ -1,0 +1,66 @@
+{block content}
+<div class="under-tabs">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Víteje!</h3>
+        </div>
+        <div class="panel-body">
+            {_"Vítejte na stránkách redakčního systému Simple."}
+        </div>
+    </div>
+    <div class="ut-row clearfix">
+        <div class="ut-half">
+            <div class="panel panel-info h232">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Technická podpora
+                    </h3>
+                 </div>
+                 <div class="panel-body">
+                     V případě, že budete mít jakékoliv dotazy k tomuto systému, kontaktujte nás prosím na e-mailové adrese podpora@egen.cz nebo na telefonu 777 33 66 00. Kontaktovat nás můžete také prostřednictvím tohoto <a href="#">formuláře pro podporu</a>.
+                 </div>
+              </div>
+          </div>
+
+            <div class="ut-half last">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Informace o katalogu
+                        </h3>
+                     </div>
+                     <div class="panel-body">
+                         <table>
+                             <tbody>
+                                 <tr>
+                                     <td>Typ katalogu:</td>
+                                     <td>{$config->application->type}</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Verze katalogu:</td>
+                                     <td>{$config->application->version}</td>
+                                 </tr>
+                                <tr>
+                                     <td>Verze katalogu:</td>
+                                     <td>{$config->application->compiled}</td>
+                                 </tr> 
+                                <tr>
+                                     <td>Vaše oprávnění:</td>
+                                     <td>
+                                        {foreach $user->getIdentity()->getRoles() as $item}
+                                            {$item}
+                                            {if !$iterator->isLast()}
+                                            ,&nbsp;
+                                            {/if}
+                                        {/foreach}
+                                     </td>
+                                 </tr>                              
+                             </tbody>
+                         </table>
+                     </div>
+                  </div>
+            </div> 
+        </div>
+    </div>
+
+{/block}

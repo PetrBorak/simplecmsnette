@@ -1,0 +1,20 @@
+         <div id="sidebar">
+             {if $user->isLoggedIn()}
+             <div class="title">Seznamy úkolů</div>
+             <div class="task-lists">
+                 <ul>
+                     <li n:foreach="$lists as $list"><a n:href="Task: $list->id">{$list->title}</a></li>
+                 </ul>
+             </div>
+
+             <fieldset>
+                 <legend>Nový seznam</legend>
+                 {form newListForm}
+                 <div class="new-list-form">
+                     {input title}
+                     {input create}
+                 </div>
+                 {/form}
+             </fieldset>
+             {/if}
+         </div>

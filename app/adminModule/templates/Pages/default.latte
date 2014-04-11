@@ -1,0 +1,50 @@
+{* Latte template *}
+
+{block content}
+    <div class="under-tabs">
+        <div class="nav-box build clearfix">
+            <a class="add-page-ico" n:href="Pages:addPage">
+                <span class="glyphicon glyphicon-plus">
+                </span>
+                {_"Přidat stránku"}
+            </a>
+        </div>
+        {snippet items}
+            <ul class="sortable pageitems">
+              {foreach $items as $item}
+                  <li class="item" id="item-{$item->id}">
+                    <i class="glyphicon glyphicon-move">&nbsp;</i>{$item['title']}
+                    <span class="toright">
+                        <a n:href="Pages:edit $item->id, lang=>$lang">
+                            <i class="glyphicon glyphicon-pencil">&nbsp;</i>
+                        </a>
+                        <a n:href="Pages:remove $item->id">
+                            <i class="glyphicon glyphicon-remove-circle">&nbsp;</i>
+                        </a>                            
+                    </span>
+                  </li>
+
+              {/foreach}
+            </ul>
+          {/snippet}
+     </div>
+     
+   <script type="text/javascript">
+    jQuery(function() {
+        
+      jQuery("ul.sortable").livequery(function() {
+              
+          jQuery(this).sortable({
+              update: function(serialize, ui) {
+                  jQuery.ajax({
+                      url: {link changeRank!},
+                      data: jQuery(this).sortable("serialize"),
+                      type: 'post'
+                  });
+              }
+          });
+      });
+      jQuery("ul.sortable").disableSelection();
+    });
+  </script>
+  {/block content}
